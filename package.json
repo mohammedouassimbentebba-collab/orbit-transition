@@ -1,0 +1,69 @@
+{
+  "name": "orbit-transition",
+  "version": "1.1.0",
+  "description": "Cinematic page transitions for the web, with source-element motion and edge-aware label recoloring.",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./react": "./src/react/index.js",
+    "./react-router": "./src/react-router/index.js",
+    "./next": "./src/next/index.js"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "check": "node --check src/index.js && node --check src/presets.js && node --check src/react/index.js && node --check src/react-router/index.js && node --check src/next/index.js",
+    "test": "node test/smoke.mjs && node test/api-contract.mjs",
+    "pack:check": "npm pack --dry-run"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-router-dom": ">=6",
+    "next": ">=13"
+  },
+  "license": "MIT",
+  "keywords": [
+    "page-transition",
+    "page-transitions",
+    "orbit-transition",
+    "transition",
+    "animation",
+    "circular",
+    "wipe",
+    "navigation",
+    "react",
+    "nextjs",
+    "react-router"
+  ],
+  "homepage": "https://github.com/example/orbit-transition",
+  "bugs": {
+    "url": "https://github.com/example/orbit-transition/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/example/orbit-transition.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-router-dom": {
+      "optional": true
+    },
+    "next": {
+      "optional": true
+    }
+  }
+}

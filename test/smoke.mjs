@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
+if (pkg.version !== '1.1.0') throw new Error(`Unexpected version: ${pkg.version}`);
+for (const key of ['react','react-router','next']) if (!pkg.exports[`./${key}`]) throw new Error(`Missing ${key} export`);
+if (!pkg.exports['.']) throw new Error('Core export missing');
+if (!fs.existsSync(path.join(root,'src/presets.js'))) throw new Error('Preset module missing');
+console.log('smoke: ok');
