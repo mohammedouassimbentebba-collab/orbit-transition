@@ -3,120 +3,238 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Orbit Transition v0.9 showcase" />
-  <title>Orbit Transition — v0.9 Showcase</title>
+
+  <meta
+    name="description"
+    content="Orbit Transition v1.1.0 — cinematic page transitions for the web."
+  />
+
+  <title>Orbit Transition — v1.1.0 Showcase</title>
+
   <style>
-    * { box-sizing: border-box; }
-    :root { color-scheme: light; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      color-scheme: light;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    }
+
+    html {
+      min-height: 100%;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
       color: #111;
       background: #f4f0e8;
-      transition: background .24s linear;
+      transition: background 0.24s linear;
     }
-    body[data-page="work"] { background: #e9eef7; }
-    body[data-page="about"] { background: #eee9f1; }
 
+    body[data-page="work"] {
+      background: #e9eef7;
+    }
+
+    body[data-page="about"] {
+      background: #eee9f1;
+    }
+
+    /* Navigation */
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: clamp(20px, 4vw, 36px) clamp(20px, 5vw, 72px);
     }
-    .brand { font-weight: 900; letter-spacing: .12em; }
-    .links { display: flex; gap: clamp(10px, 2.6vw, 30px); }
+
+    .brand {
+      font-weight: 900;
+      letter-spacing: 0.12em;
+    }
+
+    .links {
+      display: flex;
+      gap: clamp(10px, 2.6vw, 30px);
+    }
+
     .links a {
       color: inherit;
       text-decoration: none;
       font-weight: 850;
-      letter-spacing: .04em;
+      letter-spacing: 0.04em;
       padding: 8px 3px;
       -webkit-tap-highlight-color: transparent;
     }
 
+    .links a:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 5px;
+      border-radius: 4px;
+    }
+
+    /* Main content */
     main {
       min-height: calc(100vh - 92px);
       display: grid;
       place-items: center;
       padding: 34px 6vw 140px;
     }
-    .hero { max-width: 960px; width: 100%; }
+
+    .hero {
+      max-width: 960px;
+      width: 100%;
+    }
+
     .eyebrow {
-      letter-spacing: .16em;
+      letter-spacing: 0.16em;
       font-weight: 850;
       font-size: 11px;
-      opacity: .52;
+      opacity: 0.52;
     }
+
     h1 {
       font-size: clamp(56px, 11.5vw, 158px);
-      line-height: .82;
-      letter-spacing: -.075em;
+      line-height: 0.82;
+      letter-spacing: -0.075em;
       margin: 20px 0 24px;
     }
+
     p {
       max-width: 700px;
       line-height: 1.7;
-      opacity: .68;
+      opacity: 0.68;
       font-size: clamp(15px, 1.55vw, 19px);
       margin: 0;
     }
 
+    /* Motion controls */
     .panel {
       position: fixed;
       left: 22px;
       bottom: 22px;
       width: min(390px, calc(100vw - 44px));
+
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
+
       padding: 16px;
+
       border: 1px solid #1111;
       border-radius: 20px;
+
       background: #fff9;
       backdrop-filter: blur(16px);
+
       box-shadow: 0 16px 50px #0001;
     }
-    .panel strong { grid-column: 1/-1; font-size: 13px; }
-    .control { display: grid; gap: 5px; }
-    .control label { font-size: 11px; font-weight: 800; opacity: .58; }
-    input, select { width: 100%; }
-    .phase {
-      grid-column: 1/-1;
-      padding-top: 4px;
-      font: 700 11px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
-      opacity: .55;
+
+    .panel strong {
+      grid-column: 1 / -1;
+      font-size: 13px;
     }
 
+    .control {
+      display: grid;
+      gap: 5px;
+    }
+
+    .control label {
+      font-size: 11px;
+      font-weight: 800;
+      opacity: 0.58;
+    }
+
+    input,
+    select {
+      width: 100%;
+    }
+
+    .phase {
+      grid-column: 1 / -1;
+      padding-top: 4px;
+
+      font:
+        700 11px/1.4 ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        monospace;
+
+      opacity: 0.55;
+    }
+
+    /* Informational note */
     .status {
       position: fixed;
       right: 22px;
       bottom: 22px;
       max-width: min(380px, calc(100vw - 44px));
+
       padding: 12px 14px;
+
       border: 1px solid #1111;
       border-radius: 14px;
+
       background: #fff9;
       backdrop-filter: blur(16px);
+
       font-size: 11px;
       line-height: 1.45;
-      opacity: .72;
+
+      opacity: 0.72;
     }
 
+    /* Mobile */
     @media (max-width: 720px) {
-      nav { padding: 18px 20px; }
-      .brand { display: none; }
-      .links { width: 100%; justify-content: flex-end; }
-      main { padding: 24px 20px 260px; }
-      h1 { margin-top: 16px; }
-      .panel { position: fixed; left: 16px; bottom: 16px; width: calc(100vw - 32px); }
-      .status { display: none; }
+      nav {
+        padding: 18px 20px;
+      }
+
+      .brand {
+        display: none;
+      }
+
+      .links {
+        width: 100%;
+        justify-content: flex-end;
+      }
+
+      main {
+        padding: 24px 20px 260px;
+      }
+
+      h1 {
+        margin-top: 16px;
+      }
+
+      .panel {
+        position: fixed;
+        left: 16px;
+        bottom: 16px;
+        width: calc(100vw - 32px);
+      }
+
+      .status {
+        display: none;
+      }
+    }
+
+    /* Reduced motion for the showcase itself */
+    @media (prefers-reduced-motion: reduce) {
+      body {
+        transition: none;
+      }
     }
   </style>
 </head>
+
 <body data-page="home">
-  <nav>
+
+  <nav aria-label="Primary navigation">
     <div class="brand">ORBIT</div>
+
     <div class="links">
       <a href="?page=home">HOME</a>
       <a href="?page=work">WORK</a>
@@ -126,8 +244,12 @@
 
   <main>
     <section class="hero">
-      <div class="eyebrow">ORBIT TRANSITION · v0.9 RELEASE CANDIDATE</div>
+      <div class="eyebrow">
+        ORBIT TRANSITION · v1.1.0
+      </div>
+
       <h1>MOVE<br>THROUGH.</h1>
+
       <p id="copy">
         A framework-neutral transition system where the clicked label becomes part
         of the transition, the circular wipe carries the scene into full black,
@@ -136,29 +258,65 @@
     </section>
   </main>
 
-  <aside class="panel" aria-label="Transition controls">
+  <aside
+    class="panel"
+    aria-label="Orbit Transition motion controls"
+  >
     <strong>Motion lab</strong>
+
     <div class="control">
       <label for="preset">Preset</label>
+
       <select id="preset">
-        <option>cinematic</option>
-        <option>snappy</option>
-        <option>soft</option>
+        <option value="cinematic">cinematic</option>
+        <option value="snappy">snappy</option>
+        <option value="soft">soft</option>
       </select>
     </div>
+
     <div class="control">
       <label for="color">Wipe color</label>
-      <input id="color" type="color" value="#000000">
+
+      <input
+        id="color"
+        type="color"
+        value="#000000"
+      />
     </div>
+
     <div class="control">
       <label for="duration">Duration</label>
-      <input id="duration" type="range" min="840" max="1600" step="20" value="1180">
+
+      <input
+        id="duration"
+        type="range"
+        min="840"
+        max="1600"
+        step="20"
+        value="1180"
+      />
     </div>
+
     <div class="control">
       <label for="scale">Label scale</label>
-      <input id="scale" type="range" min="1.2" max="2.2" step="0.05" value="1.8">
+
+      <input
+        id="scale"
+        type="range"
+        min="1.2"
+        max="2.2"
+        step="0.05"
+        value="1.8"
+      />
     </div>
-    <div class="phase" id="phase" aria-live="polite">phase: idle</div>
+
+    <div
+      class="phase"
+      id="phase"
+      aria-live="polite"
+    >
+      phase: idle
+    </div>
   </aside>
 
   <div class="status">
@@ -167,7 +325,10 @@
   </div>
 
   <script type="module">
-    import { createOrbitTransition, presets } from '../src/index.js';
+    import {
+      createOrbitTransition,
+      presets
+    } from './src/index.js';
 
     const engine = createOrbitTransition({
       ...presets.cinematic,
@@ -176,49 +337,125 @@
     });
 
     const content = {
-      home: ['MOVE', 'THROUGH.', 'The clicked label moves with the wipe. The edge of the circle recolors the label as it crosses it, then the same circle reveals the destination.'],
-      work: ['BUILD', 'BOLDLY.', 'WORK verifies that the navigation contract is separate from the animation core, so the same visual behavior can sit on top of many routers.'],
-      about: ['DESIGN', 'MOMENTUM.', 'ABOUT is the final showcase state: the destination is visible only after the circular reveal completes and the source label returns home.']
+      home: [
+        'MOVE',
+        'THROUGH.',
+        'The clicked label moves with the wipe. The edge of the circle recolors the label as it crosses it, then the same circle reveals the destination.'
+      ],
+
+      work: [
+        'BUILD',
+        'BOLDLY.',
+        'WORK verifies that the navigation contract is separate from the animation core, so the same visual behavior can sit on top of many routers.'
+      ],
+
+      about: [
+        'DESIGN',
+        'MOMENTUM.',
+        'ABOUT is the final showcase state: the destination is visible only after the circular reveal completes and the source label returns home.'
+      ]
     };
 
-    const $ = (s) => document.querySelector(s);
+    const $ = (selector) => {
+      return document.querySelector(selector);
+    };
 
-    function render(url = new URL(location.href)) {
+    function render(url = new URL(window.location.href)) {
       const page = url.searchParams.get('page') || 'home';
-      const [a, b, copy] = content[page] || content.home;
+
+      const [titleA, titleB, copy] =
+        content[page] || content.home;
+
       document.body.dataset.page = page;
-      document.querySelector('h1').innerHTML = `${a}<br>${b}`;
+
+      document.querySelector('h1').innerHTML =
+        `${titleA}<br>${titleB}`;
+
       $('#copy').textContent = copy;
     }
 
+    /*
+     * Connect the transition engine to the demo navigation.
+     */
     engine.bindLinks({
-      onNavigate: async (url) => render(url)
+      onNavigate: async (url) => {
+        render(url);
+      }
     });
 
+    /*
+     * Display the current transition phase.
+     */
     engine.onPhase(({ name }) => {
       $('#phase').textContent = `phase: ${name}`;
     });
 
+    /*
+     * Presets
+     */
     $('#preset').addEventListener('change', (event) => {
-      engine.setOptions(presets[event.target.value]);
-      $('#duration').value = engine.options.duration;
-      $('#scale').value = engine.options.labelScale;
+      const presetName = event.target.value;
+
+      engine.setOptions(
+        presets[presetName]
+      );
+
+      $('#duration').value =
+        engine.options.duration;
+
+      $('#scale').value =
+        engine.options.labelScale;
     });
 
-    $('#color').addEventListener('input', (event) => {
-      engine.setOptions({ color: event.target.value });
-    });
+    /*
+     * Wipe color
+     */
+    $('#color').addEventListener(
+      'input',
+      (event) => {
+        engine.setOptions({
+          color: event.target.value
+        });
+      }
+    );
 
-    $('#duration').addEventListener('input', (event) => {
-      engine.setOptions({ duration: Number(event.target.value) });
-    });
+    /*
+     * Duration
+     */
+    $('#duration').addEventListener(
+      'input',
+      (event) => {
+        engine.setOptions({
+          duration: Number(event.target.value)
+        });
+      }
+    );
 
-    $('#scale').addEventListener('input', (event) => {
-      engine.setOptions({ labelScale: Number(event.target.value) });
-    });
+    /*
+     * Label scale
+     */
+    $('#scale').addEventListener(
+      'input',
+      (event) => {
+        engine.setOptions({
+          labelScale: Number(event.target.value)
+        });
+      }
+    );
 
-    addEventListener('popstate', () => render());
+    /*
+     * Browser Back / Forward
+     */
+    window.addEventListener(
+      'popstate',
+      () => render()
+    );
+
+    /*
+     * Initial render
+     */
     render();
   </script>
+
 </body>
 </html>
