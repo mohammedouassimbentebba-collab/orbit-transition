@@ -9,7 +9,7 @@ page is revealed behind the circle, and the label returns to its original positi
 
 ## Status
 
-`1.0.0` — stable API.
+`1.1.0` — stable API.
 
 The core API is intentionally small and framework-neutral. Framework adapters stay
 thin so the animation engine can be used without React.
