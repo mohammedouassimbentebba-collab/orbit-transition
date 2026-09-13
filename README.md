@@ -1,49 +1,85 @@
+﻿<div align="center">
+
 # Orbit Transition
 
-A framework-neutral circular page transition for modern websites.
+**Cinematic page transitions for the web, with source-element motion and edge-aware label recoloring.**
 
-The engine turns the element that triggered navigation into part of the transition:
-the source label moves toward the viewport center, scales up, a giant circular wipe
-travels left-to-right, the label becomes white where the wipe reaches it, the new
-page is revealed behind the circle, and the label returns to its original position.
+[![npm version](https://img.shields.io/npm/v/orbit-transition.svg?style=flat-square&color=2563eb)](https://www.npmjs.com/package/orbit-transition)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg?style=flat-square)](./src/index.d.ts)
+[![Bundle Size](https://img.shields.io/badge/bundle-<9KB-emerald.svg?style=flat-square)](./src/index.js)
 
-## Status
+<br/>
 
-`1.1.0` — stable API.
+<img src="./assets/orbit-transition-demo.gif" alt="Orbit Transition Live Demo" width="760" style="max-width: 100%; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);" />
 
-The core API is intentionally small and framework-neutral. Framework adapters stay
-thin so the animation engine can be used without React.
+<br/>
+<br/>
 
-## Install
+[**Live Demo Showcase**](https://mohammedouassimbentebba-collab.github.io/orbit-transition/) · [**NPM Package**](https://www.npmjs.com/package/orbit-transition) · [**GitHub Repository**](https://github.com/mohammedouassimbentebba-collab/orbit-transition)
 
-Once published to npm:
+</div>
+
+---
+
+## Overview
+
+Orbit Transition turns the element that triggered navigation into part of the transition itself:
+1. **Label Motion**: The clicked navigation label smoothly scales and glides towards the viewport center.
+2. **Orbital Sweep**: A giant GPU-accelerated circular wipe sweeps across the screen.
+3. **Edge-Aware Optics**: The label dynamically re-colors at the exact boundary where the circle crosses it.
+4. **Seamless Reveal**: The destination page is revealed under full coverage, and the label docks gracefully into position.
+
+## Features
+
+- 🚀 **Framework-Neutral Core**: Pure JavaScript with zero runtime dependencies.
+- ⚡ **60 FPS Hardware-Accelerated**: Fluid animations using CSS transforms, opacity, and clip-path layers.
+- ⚛️ **Turn-Key Adapters**: Native bindings for **React**, **React Router**, and **Next.js App Router**.
+- 🎨 **Preset System**: Built-in `cinematic`, `snappy`, and `soft` timing configurations.
+- ♿ **Accessibility First**: Respects `prefers-reduced-motion` and manages `aria-busy` states automatically.
+- 📘 **TypeScript Ready**: Full type definitions and intellisense included out of the box.
+
+---
+
+## Installation
 
 ```bash
 npm install orbit-transition
 ```
 
-For source use, install the repository dependencies and import the local package.
+Or with pnpm / yarn / bun:
 
-## Vanilla
+```bash
+pnpm add orbit-transition
+# yarn add orbit-transition
+# bun add orbit-transition
+```
+
+---
+
+## Quick Start
+
+### 1. Vanilla JavaScript
 
 ```js
-import { createOrbitTransition } from 'orbit-transition';
+import { createOrbitTransition, presets } from 'orbit-transition';
 
 const transition = createOrbitTransition({
-  preset: 'cinematic',
+  ...presets.cinematic,
   color: '#000000',
   labelScale: 1.8,
 });
 
+// Bind all internal navigation links automatically
 transition.bindLinks({
   onNavigate: async (url) => {
-    // Swap your view or let your router handle it.
-    render(url);
+    // Render your new view or fetch the page
+    await renderPage(url);
   },
 });
 ```
 
-## React
+### 2. React
 
 ```jsx
 import {
@@ -51,141 +87,109 @@ import {
   TransitionLink,
 } from 'orbit-transition/react';
 
-export default function Nav() {
+export default function App() {
   return (
-    <OrbitTransitionProvider preset="cinematic">
-      <TransitionLink to="/about">ABOUT</TransitionLink>
+    <OrbitTransitionProvider options={{ preset: 'cinematic', color: '#000000' }}>
+      <nav>
+        <TransitionLink to="/work">WORK</TransitionLink>
+        <TransitionLink to="/about">ABOUT</TransitionLink>
+      </nav>
     </OrbitTransitionProvider>
   );
 }
 ```
 
-## React Router
-
-```jsx
-import { RouterTransitionLink } from 'orbit-transition/react-router';
-
-<RouterTransitionLink to="/projects">PROJECTS</RouterTransitionLink>
-```
-
-## Next.js App Router
+### 3. Next.js (App Router)
 
 ```jsx
 'use client';
 
 import { NextTransitionLink } from 'orbit-transition/next';
 
-<NextTransitionLink href="/work">WORK</NextTransitionLink>
+export function Navigation() {
+  return (
+    <header>
+      <NextTransitionLink href="/work">WORK</NextTransitionLink>
+      <NextTransitionLink href="/studio">STUDIO</NextTransitionLink>
+    </header>
+  );
+}
 ```
 
-## Presets
+### 4. React Router
+
+```jsx
+import { RouterTransitionLink } from 'orbit-transition/react-router';
+
+export function Header() {
+  return (
+    <RouterTransitionLink to="/projects">PROJECTS</RouterTransitionLink>
+  );
+}
+```
+
+---
+
+## Presets & Configuration
 
 ```js
 import { presets } from 'orbit-transition';
 
-presets.cinematic
-presets.snappy
-presets.soft
+// Available out-of-the-box presets:
+presets.cinematic // 1240ms - Epic, weighted easing with deep center hold
+presets.snappy    // 920ms  - High velocity, energetic response
+presets.soft      // 1420ms - Gentle deceleration with delicate feathering
 ```
 
-## Customization
+### Options Reference
 
-```js
-transition.setOptions({
-  duration: 980,
-  color: '#0b0b0b',
-  labelScale: 1.6,
-  edgeFeather: 10,
-  easing: (t) => 1 - Math.pow(1 - t, 5),
-});
-```
+| Option | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `duration` | `number` | `1240` | Total animation duration in milliseconds |
+| `color` | `string` | `'#000000'` | Background color of the orbital wipe circle |
+| `labelColor` | `string` | `'#ffffff'` | Color of the label when enclosed in the wipe |
+| `labelScale` | `number` | `1.8` | Maximum scaling factor for the moving label |
+| `centerHold` | `number` | `0.02` | Pause duration at screen center |
+| `sweepRatio` | `number` | `0.42` | Proportion of time dedicated to circle travel |
+| `revealRatio` | `number` | `0.16` | Reveal phase ratio |
+| `returnRatio` | `number` | `0.16` | Return dock phase ratio |
+| `reducedMotion` | `boolean` | `undefined` | Override system reduced-motion preference |
 
-Core timing controls:
+---
 
-- `duration`
-- `centerHold`
-- `sweepRatio`
-- `revealRatio`
-- `returnRatio`
+## Lifecycle Events
 
-Visual controls:
-
-- `color`
-- `labelColor`
-- `labelScale`
-- `startOvershoot`
-- `edgeFeather`
-
-Behavior:
-
-- `sameOriginOnly`
-- `reducedMotion`
-
-## Lifecycle events
+Observe state changes throughout the animation lifecycle:
 
 ```js
 const unsubscribe = transition.onPhase(({ name }) => {
-  // start
-  // label-move
-  // center
-  // sweep
-  // covered
-  // reveal
-  // return
+  console.log('Current Phase:', name);
+  // Emits: 'start' -> 'label-move' -> 'center' -> 'sweep' -> 'covered' -> 'reveal' -> 'return' -> 'idle'
 });
 ```
 
-The same lifecycle is also emitted as the browser event
-`circulartransition:phase`.
+---
 
-## Accessibility
+## Local Development & Showcase
 
-The engine respects `prefers-reduced-motion`. Set `reducedMotion: true` to force
-the accessible route behavior, or `false` to opt out of automatic detection.
-
-During a transition the document receives `aria-busy="true"` through the framework
-adapters where supported, and repeated navigation is ignored while the engine is busy.
-
-## Architecture
-
-```text
-src/
-  index.js
-  presets.js
-  react/
-  react-router/
-  next/
-demo/
-test/
-```
-
-The core engine is framework-neutral. Adapters are thin wrappers around it.
-
-## Development
+To run the interactive showcase and Motion Lab locally:
 
 ```bash
+# Clone the repository
+git clone https://github.com/mohammedouassimbentebba-collab/orbit-transition.git
+cd orbit-transition
+
+# Run the showcase dev server
+npm run dev
+
+# Run the test suite
 npm test
-npm run check
 ```
 
-## License
+---
 
-MIT
+## Author & License
 
+Created and maintained by **Mohammed Ouassim Bentebba** ([@mohammedouassimbentebba-collab](https://github.com/mohammedouassimbentebba-collab)).
 
-## Browser guidance
-
-The engine uses standard DOM APIs, CSS transforms, `requestAnimationFrame`, and
-`prefers-reduced-motion`. Run the included showcase in the browsers you support
-before shipping, especially when combining it with a custom router or complex
-layout system.
-
-
-## Naming
-
-`1.1.0` is the Orbit Transition identity release.
-
-New projects should use `OrbitTransition` and `createOrbitTransition`.
-
-For projects already using the `1.0.x` API, `CircularTransition` and
-`createCircularTransition` remain available as deprecated compatibility aliases.
+Licensed under the [MIT License](./LICENSE).

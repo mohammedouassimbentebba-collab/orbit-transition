@@ -10,6 +10,7 @@
     "./react-router": "./src/react-router/index.js",
     "./next": "./src/next/index.js"
   },
+  "types": "./src/index.d.ts",
   "files": [
     "src",
     "README.md",
@@ -17,8 +18,9 @@
     "LICENSE"
   ],
   "scripts": {
+    "dev": "node dev-server.mjs",
     "check": "node --check src/index.js && node --check src/presets.js && node --check src/react/index.js && node --check src/react-router/index.js && node --check src/next/index.js",
-    "test": "node test/smoke.mjs && node test/api-contract.mjs",
+    "test": "node test/smoke.mjs && node test/api-contract.mjs && node test/presets.test.mjs",
     "pack:check": "npm pack --dry-run"
   },
   "peerDependencies": {
@@ -26,6 +28,7 @@
     "react-router-dom": ">=6",
     "next": ">=13"
   },
+  "author": "Mohammed Ouassim Bentebba",
   "license": "MIT",
   "keywords": [
     "page-transition",
@@ -40,13 +43,13 @@
     "nextjs",
     "react-router"
   ],
-  "homepage": "https://github.com/example/orbit-transition",
+  "homepage": "https://github.com/mohammedouassimbentebba-collab/orbit-transition#readme",
   "bugs": {
-    "url": "https://github.com/example/orbit-transition/issues"
+    "url": "https://github.com/mohammedouassimbentebba-collab/orbit-transition/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/example/orbit-transition.git"
+    "url": "https://github.com/mohammedouassimbentebba-collab/orbit-transition.git"
   },
   "engines": {
     "node": ">=18"
